@@ -1,9 +1,4 @@
-//Import question.js
-const question = require("./questions");
+//Importo objeto lectura
+const preguntas = require("./questions");
 
-//Función ejercicio
-function ejercicio () {
-    question.preguntas();
-}
-
-ejercicio();
+preguntas.respuestas();

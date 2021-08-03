@@ -1,22 +1,32 @@
-//Import fs
-const fs = require("fs");
+//Importo librería fs
+const fs = require("fs/promises");
 
-//Funcion fs
-function escrituraJSON (answer1, answer2, answer3) {
-    let persona2 = {
-                    "name" : answer1,
-                    "surname" : answer2,
-                    "age" : answer3
-    };
-    let string2 = JSON.stringify(persona2, null, 2);
-    setTimeout (
-        () => {
-            let data = fs.readFileSync("./persona2.json", "utf-8");
-            console.log(data);
-    }
-    , 2000)
-    
-    fs.writeFileSync("./persona2.json", string2);
+//.then y .catch
+function escritura (persona) {
+    fs.writeFile("persona.json", JSON.stringify(persona, null, 2))
+    .then (function (path, data) {
+        return fs.readFile("persona.json", "utf-8");
+    })
+    .then (function (data) {
+        console.log(JSON.parse(data));
+    })
+    .catch (function (error) {
+        console.log(error);
+    })
 }
 
-module.exports = {escrituraJSON};
+//async y await
+async function escritura(persona) {
+    try
+    {
+        fs.writeFile("persona2.json", JSON.stringify(persona, null, 2));
+        let resultado = await fs.readFile("persona2.json", "utf-8");
+        console.log(JSON.parse(resultado));
+    }
+    catch(error)
+    {
+        console.log(error);
+    }
+}
+
+module.exports = {escritura};
